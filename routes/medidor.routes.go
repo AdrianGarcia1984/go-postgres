@@ -19,7 +19,7 @@ func GetMedidorHandler(w http.ResponseWriter, r *http.Request) {
 
 	var medidor models.Medidor
 	params:=mux.Vars(r)
-	fmt.Println(params["id"])
+	//fmt.Println(params["id"])
 
 	database.DB.First(&medidor, params["id"])
 
@@ -58,11 +58,11 @@ func PostMedidorHandler(w http.ResponseWriter, r *http.Request) {
 
 	json.NewDecoder(r.Body).Decode(&medidor)
 	
-	fmt.Println("body ", &medidor)
+	//fmt.Println("body ", &medidor)
 
 	database.DB.Where(&models.Medidor{Brand: medidor.Brand, Serial: medidor.Serial}).Find(&newMedidor)
 
-	fmt.Println("consulta ", &newMedidor)
+	//fmt.Println("consulta ", &newMedidor)
 
 	if newMedidor.Id !=0 {
 		w.WriteHeader(http.StatusMethodNotAllowed)
@@ -91,12 +91,7 @@ func UpdateMedidorHandler(w http.ResponseWriter, r *http.Request) {
 	
 	json.NewDecoder(r.Body).Decode(&newMedidor)
 	
-	// reqbody,_:= ioutil.ReadAll(r.Body)	
-	// json.Unmarshal(reqbody,&prueba)
-	
-	// fmt.Println("prueba: ",reqbody)
-	
-	fmt.Println("new medidor: ",newMedidor)
+	//fmt.Println("new medidor: ",newMedidor)
 
 	params:=mux.Vars(r)
 	
@@ -121,7 +116,7 @@ func UpdateMedidorHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(newMedidor.IsActive)
+	//fmt.Println(newMedidor.IsActive)
 
 	database.DB.Model(&medidor).Updates(models.Medidor{
 
@@ -138,7 +133,7 @@ func UpdateMedidorHandler(w http.ResponseWriter, r *http.Request) {
 	
 	json.NewEncoder(w).Encode(&medidor)
 	w.Write([]byte("medidor actualizado con exito"))
-	json.NewEncoder(w).Encode(&newMedidor)
+	//json.NewEncoder(w).Encode(&newMedidor)
 }
 
 //delete medidor
