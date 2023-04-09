@@ -25,6 +25,7 @@ func main() {
 	r.HandleFunc("/medidores", routes.PostMedidorHandler).Methods("POST")
 	r.HandleFunc("/medidores/{id}", routes.DeleteMedidorHandler).Methods("DELETE")
 	r.HandleFunc("/medidores/{id}", routes.UpdateMedidorHandler).Methods("PUT")
+	r.HandleFunc("/medidores/active/{is_active}", routes.ActiveMedidor).Methods("GET")
 	
 
 
