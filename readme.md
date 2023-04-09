@@ -16,7 +16,8 @@ Realizar una API en HTTP o preferiblemente en gRPC para interactuar con la aplic
 1. En el caso de ser gRPC debe crear el archivo .proto y adjuntarlo al repositorio
 2. En el caso de ser http agregar documentación al API con Swagger (Swaggo)
 
-Realice un endpoint que retorne los medidores instalados actualmente que tengan cortado o inactivo el servicio de energía.
+Realice un endpoint que retorne los medidores instalados actualmente que tengan cortado o inactivo el servicio de energía.(check)
+
 Realice un endpoint que a partir de un serial y marca retorne la instalación más reciente.
 
 Publicar todos los eventos de creación de registros de la base de datos en un stream de Redis Stream de forma asíncrona. (Si hizo la implementación de gRPC usar streams para escuchar los eventos de redis).
