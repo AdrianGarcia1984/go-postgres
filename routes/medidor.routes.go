@@ -24,7 +24,8 @@ func GetMedidorHandler(w http.ResponseWriter, r *http.Request) {
 	database.DB.First(&medidor, params["id"])
 
 	if medidor.Id == 0 {
-		w.Write([]byte("user not found"))
+		w.WriteHeader(http.StatusBadRequest)//400
+		w.Write([]byte("medidor no encontrado"))
 		return
 	}
 
@@ -65,7 +66,7 @@ func PostMedidorHandler(w http.ResponseWriter, r *http.Request) {
 	//fmt.Println("consulta ", &newMedidor)
 
 	if newMedidor.Id !=0 {
-		w.WriteHeader(http.StatusMethodNotAllowed)
+		w.WriteHeader(http.StatusMethodNotAllowed)//405
 		w.Write([]byte("no se puede crear el medidor, ya hay uno registrado con los datos ingresados"))
 		return
 	}
@@ -100,6 +101,7 @@ func UpdateMedidorHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("medidor: ",medidor)
 	
 	if medidor.Id == 0 {
+		w.WriteHeader(http.StatusBadRequest)//400
 		w.Write([]byte("medidor not found"))
 		return
 	}
@@ -111,8 +113,8 @@ func UpdateMedidorHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if (newMedidor.Address !="" && medidor.IsActive!=false )  {
-		w.Write([]byte("el medidor que intenta modificar se encuentra activo en una direccion, por favor, desactive el medidor"))
 		w.WriteHeader(http.StatusBadRequest)//400
+		w.Write([]byte("el medidor que intenta modificar se encuentra activo en una direccion, por favor, desactive el medidor"))
 		return
 	}
 

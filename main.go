@@ -17,7 +17,7 @@ func main() {
 	 database.DB.AutoMigrate(models.Medidor{})
 
 	r:=mux.NewRouter()
-
+	
 	//endpoints
 	r.HandleFunc("/", routes.HomeHandler)
 	r.HandleFunc("/medidores", routes.GetMedidoresHandler).Methods("GET")
@@ -29,7 +29,7 @@ func main() {
 	r.HandleFunc("/medidores/search/{brand}/{serial}", routes.BrandMedidor).Methods("GET")
 	
 
-
+	r.Use(mux.CORSMethodMiddleware(r))
 
 	http.ListenAndServe(":3000", r)
 
