@@ -1,25 +1,46 @@
-Se requiere:
-Realizar un CRUD (create, read, update, delete) en una base de datos Postgres:
-1. Usando algún ORM (gorm,bun, etc..).
-2. Definiendo el modelo de datos como estructuras de Go.
-3. Implementar un sistema de migraciones que permita crear la tabla en la base de datos
-4. Las conexiones a la base de datos deben definirse como una variable de entorno
+# INTRODUCCION
 
-Restricciones de negocio:
-* No puede eliminar medidores que estén instalados en este momento. (check)
-* No puede crear dos medidores con el mismo serial-marca (check)
+ Esta API se encarga de llevar el control de los medidores de energia de la empresa enerBit, donde se presenta el reto de registrar y hacer seguimiento de los medidores de energía que se han instalado en los predios de nuestros clientes, para efectos de pruebas en modo local se manejara la url localhost:3000
 
-* Solo puede existir un medidor por predio (En un mismo periodo de tiempo)
+ Esta diseñada bajo Go, con los framework gorilla-mux para manejar la conexion, gorm para el ORM, y postgres como base de datos.
 
-* No puede cambiar: la fecha de instalación, serial, marca (check)
-Realizar una API en HTTP o preferiblemente en gRPC para interactuar con la aplicación:
-1. En el caso de ser gRPC debe crear el archivo .proto y adjuntarlo al repositorio
-2. En el caso de ser http agregar documentación al API con Swagger (Swaggo)
+## preparar la instalacion
 
-Realice un endpoint que retorne los medidores instalados actualmente que tengan cortado o inactivo el servicio de energía.(check)
+inicialmente se debe tener una imagen en docker o un servidor de postgres, necesita de estos elementos como variable de entorno para la conexion, en el archivo env.example, encontrara lo siguiente
 
-Realice un endpoint que a partir de un serial y marca retorne la instalación más reciente.
+~~~
+HOST = ""
+USER = "" 
+PASSWORD = "" 
+DBNAME = "" 
+PORT = ""
+~~~
 
-Publicar todos los eventos de creación de registros de la base de datos en un stream de Redis Stream de forma asíncrona. (Si hizo la implementación de gRPC usar streams para escuchar los eventos de redis).
+se debe clonar este repositorio
 
-Agregar casos de pruebas para las restricciones.
+~~~
+$ git clone https://https://github.com/AdrianGarcia1984/go-postgres
+~~~
+
+tener instalado la ultima version de go, ademas de la ejecucion la base de datos
+## USAGE
+
+despues de descargado el repositorio, instalar los archivos necesarios de go, con el siguiente comando en la terminal de vscode
+
+~~~ 
+go mod init
+~~~
+
+crear las variables de entorno como se indico anteriormente
+
+
+## inicar la ejecucion
+
+se debe iniciar el proyecto con 
+
+~~~
+go run .
+~~~
+
+como se inidico inicialmente se utilizara para este caso el localhost, se documento el proyecto, conforme al requerimiento con SWAGGO, con lo cual se debe iniciar en un navegador la siguiente url
+<a>http://localhost:3000/swagger/index.html</a>

@@ -11,6 +11,20 @@ import (
 	"github.com/gorilla/mux"
 )
 
+
+//medidor activo godoc
+// @Summary      busca un medidor en la base de datos con su id y develve si se encuentra activo
+// @Description  busca un medidor en la base de datos con su id y devielve si se encuentra activo
+// @Tags         medidores/active
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "medidor ID"
+
+// @Success      200  string  "medidor eliminado"
+// @Failure      400  
+// @Failure      404  
+// @Failure      500  
+// @Router       /medidores/active/{is_Active} [get]
 func ActiveMedidor(w http.ResponseWriter, r *http.Request) {
 
 	var medidores models.Medidores
@@ -28,6 +42,20 @@ func ActiveMedidor(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("active medidor"))
 }
 
+
+//medidor por marca y serial godoc
+// @Summary      busca un medidor en la base de datos con su marca y serial y develve si se la fecha de instalacion
+// @Description  busca un medidor en la base de datos con su marca y serial y develve si se la fecha de instalacion
+// @Tags         medidores/active
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "medidor ID"
+
+// @Success      200  string  "medidor eliminado"
+// @Failure      400  
+// @Failure      404  
+// @Failure      500  
+// @Router       /medidores/search/{brand}/{serial} [get]
 func BrandMedidor(w http.ResponseWriter, r *http.Request) {
 	var medidor models.Medidor
 	params := mux.Vars(r)

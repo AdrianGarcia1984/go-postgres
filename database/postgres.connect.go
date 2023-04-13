@@ -12,7 +12,6 @@ import (
 )
 
 
-
 var host = env.EnvConfig("HOST",os.Getenv("HOST"))
 var user = os.Getenv("USER")
 var password = os.Getenv("PASSWORD")

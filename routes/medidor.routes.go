@@ -12,9 +12,23 @@ import (
 	"github.com/adriangarcia1984/go-postgress/models"
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
+
+	_ "github.com/adriangarcia1984/go-postgress/docs"
 )
 
-//listar un medidor
+
+// ShowMedidor godoc
+// @Summary      Show an medidor
+// @Description  get medidor por id
+// @Tags         medidores
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "medidor ID"
+// @Success      200  {object}  models.Medidor
+// @Failure      400  
+// @Failure      404  
+// @Failure      500  
+// @Router       /medidores/{id} [get]
 func GetMedidorHandler(w http.ResponseWriter, r *http.Request) {
 
 	var medidor models.Medidor
@@ -34,7 +48,17 @@ func GetMedidorHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("getmedidorhandler"))
 }
 
-//listar todos los medidores
+//ShowAllMedidores godoc
+// @Summary      Show all medidores
+// @Description  get medidores
+// @Tags         medidores
+// @Accept       json
+// @Produce      json
+// @Success      200  {array}  models.Medidores
+// @Failure      400  
+// @Failure      404  
+// @Failure      500  
+// @Router       /medidores [get]
 func GetMedidoresHandler(w http.ResponseWriter, r *http.Request) {
 	
 	var medirores []models.Medidor
@@ -47,7 +71,18 @@ func GetMedidoresHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-//post function
+//create an medidor godoc
+// @Summary      crea un medidor en la base de datos
+// @Description  crea un medidor en la base de datos
+// @Tags         medidores
+// @Accept       json
+// @Produce      json
+// @Param        medidor   body      models.Medidor  true  "crea un nuevo medidor"
+// @Success      200  {object}  models.Medidor
+// @Failure      400  
+// @Failure      404  
+// @Failure      500  
+// @Router       /medidores [post]
 func PostMedidorHandler(w http.ResponseWriter, r *http.Request) {
 	
 	var medidor, newMedidor models.Medidor
@@ -84,7 +119,19 @@ func PostMedidorHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("medidor creado con exito"))
 }
 
-//update function
+//update an medidor godoc
+// @Summary      actualiza un medidor en la base de datos
+// @Description  actualiza un medidor en la base de datos
+// @Tags         medidores
+// @Router       /medidores/{id} [put]
+// @Accept       json
+// @Produce      json
+// @Param        id   path  int  true  "medidor ID"
+// @Param        medidor   body      models.Medidor  false  "actualiza un nuevo medidor, los campos como brand, serial, id, createdAt, no son editables"
+// @Success      200  {object}  models.Medidor
+// @Failure      400  
+// @Failure      404  
+// @Failure      500  
 func UpdateMedidorHandler(w http.ResponseWriter, r *http.Request) {
 
 	//var  prueba models.Medidor
@@ -138,7 +185,17 @@ func UpdateMedidorHandler(w http.ResponseWriter, r *http.Request) {
 	//json.NewEncoder(w).Encode(&newMedidor)
 }
 
-//delete medidor
+//delete an medidor godoc
+// @Summary      elimina un medidor en la base de datos por su id
+// @Description  elimina un medidor en la base de datos por su id
+// @Tags         medidores
+// @Produce      json
+// @Param        id   path      int  true  "medidor ID"
+// @Success      200  string  "medidor eliminado"
+// @Failure      400  
+// @Failure      404  
+// @Failure      500  
+// @Router       /medidores/{id} [delete]
 func DeleteMedidorHandler(w http.ResponseWriter, r *http.Request) {
 
 	var medidor models.Medidor

@@ -1,0 +1,215 @@
+basePath: /
+definitions:
+  models.Medidor:
+    properties:
+      address:
+        type: string
+      brand:
+        type: string
+      id:
+        type: integer
+      installation_date:
+        example: "0000-12-31T19:00:00-05:00"
+        type: string
+      is_active:
+        type: boolean
+      lines:
+        type: integer
+      retirement_date:
+        example: "0000-12-31T19:00:00-05:00"
+        type: string
+      serial:
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: Esta api se encarga de llevar el control de los medidores de energia
+    de la empresa enerBit, donde se presenta el reto de registrar y hacer seguimiento
+    de los medidores de energía que se han instalado en los predios de nuestros clientes,  para
+    efectos de pruebas en modo local se manejara la url localhost:3000, recuerde primero
+    inicialiar la base de datos, tal como se solicito en la prueba tecnica, se realizo
+    un container en docker el cual tiene la base de datos, los archivos de ejemplo
+    para la conexion a la base de datos se especifican en el archivo env.example,
+    estos deben guardarse como variables de entorno. para mas info consultar archivo
+    readme.md
+  title: API Medidores de Energia
+  version: 1.0.1
+paths:
+  /:
+    get:
+      description: get homepage
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: homepage
+      tags:
+      - medidores
+  /medidores:
+    get:
+      consumes:
+      - application/json
+      description: get medidores
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.Medidor'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Show all medidores
+      tags:
+      - medidores
+    post:
+      consumes:
+      - application/json
+      description: crea un medidor en la base de datos
+      parameters:
+      - description: crea un nuevo medidor
+        in: body
+        name: medidor
+        required: true
+        schema:
+          $ref: '#/definitions/models.Medidor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Medidor'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: crea un medidor en la base de datos
+      tags:
+      - medidores
+  /medidores/{id}:
+    delete:
+      description: elimina un medidor en la base de datos por su id
+      parameters:
+      - description: medidor ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: medidor eliminado
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: elimina un medidor en la base de datos por su id
+      tags:
+      - medidores
+    get:
+      consumes:
+      - application/json
+      description: get medidor por id
+      parameters:
+      - description: medidor ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Medidor'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Show an medidor
+      tags:
+      - medidores
+    put:
+      consumes:
+      - application/json
+      description: actualiza un medidor en la base de datos
+      parameters:
+      - description: medidor ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: actualiza un nuevo medidor, los campos como brand, serial, id,
+          createdAt, no son editables
+        in: body
+        name: medidor
+        schema:
+          $ref: '#/definitions/models.Medidor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Medidor'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: actualiza un medidor en la base de datos
+      tags:
+      - medidores
+  /medidores/active/{is_Active}:
+    get:
+      responses:
+        "200":
+          description: medidor eliminado
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+  /medidores/search/{brand}/{serial}:
+    get:
+      responses:
+        "200":
+          description: medidor eliminado
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+swagger: "2.0"
